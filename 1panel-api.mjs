@@ -142,7 +142,7 @@ class OnePanelAPI {
 
       const websites = data.data.items;
 
-      const website = websites.find((w) => w.primaryDomain === domain);
+      const website = websites?.find((w) => w.primaryDomain === domain);
 
       return website;
     } catch (error) {
