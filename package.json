@@ -16,7 +16,8 @@
   },
   "scripts": {
     "dev": "node index.mjs",
-    "start": "node index.mjs"
+    "start": "node index.mjs",
+    "release": "release-it"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.2",
@@ -29,5 +30,8 @@
     "zod": "^3.24.3",
     "zod-to-json-schema": "^3.24.5"
   },
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@10.9.0",
+  "devDependencies": {
+    "release-it": "^19.0.3"
+  }
 }
