@@ -1,14 +1,15 @@
 import axios from "axios";
-import crypto from "crypto";
+import crypto, { randomUUID } from "crypto";
 import FormData from "form-data";
 import fs from "fs-extra";
 import path from "path";
 
 class OnePanelAPI {
   constructor(config) {
-    this.baseURL = `${config.baseURL}/api/v1`;
+    this.baseURL = `${config.baseURL}/api/${config.version}`;
     this.apiKey = config.apiKey;
     this.languageCode = config.languageCode || "zh";
+    this.version = config.version || "v2";
   }
 
   getAuthHeaders() {
@@ -28,7 +29,7 @@ class OnePanelAPI {
     try {
       const headers = this.getAuthHeaders();
 
-      const requestBody = {
+      const requestBodyV1 = {
         primaryDomain: siteConfig.domain,
         type: "static",
         alias: siteConfig.domain,
@@ -62,9 +63,54 @@ class OnePanelAPI {
         runtimeType: "php",
       };
 
-      const response = await axios.post(
+      const requestBodyV2 = {
+        IPV6: false,
+        alias: siteConfig.domain,
+        appType: "installed",
+        domains: [
+          {
+            domain: siteConfig.domain,
+            port: 80,
+            ssl: false,
+          },
+        ],
+        appinstall: {
+          appId: 0,
+          name: "",
+          appDetailId: 0,
+          params: {},
+          version: "",
+          appkey: "",
+          advanced: false,
+          cpuQuota: 0,
+          memoryLimit: 0,
+          memoryUnit: "MB",
+          containerName: "",
+          allowPort: false,
+        },
+        createDb: false,
+        enableFtp: false,
+        enableSSL: false,
+        ftpPassword: "",
+        ftpUser: "",
+        otherDomains: "",
+        primaryDomain: siteConfig.domain,
+        proxy: "",
+        proxyAddress: "",
+        proxyProtocol: "http://",
+        proxyType: "tcp",
+        remark: "",
+        runtimeType: "php",
+        port: 9000,
+        siteDir: "",
+        taskID: randomUUID(),
+        type: "static",
+        webSiteGroupId: 1,
+      };
+
+      await axios.post(
         `${this.baseURL}/websites`,
-        requestBody,
+        this.version === "v1" ? requestBodyV1 : requestBodyV2,
         { headers }
       );
 

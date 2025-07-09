@@ -36,7 +36,8 @@ To use this server with Cursor IDE, add the following MCP configuration:
       ],
       "env": {
         "ONEPANEL_BASE_URL": "<your 1Panel base URL>",
-        "ONEPANEL_API_KEY": "<your 1Panel API key>"
+        "ONEPANEL_API_KEY": "<your 1Panel API key>",
+        "ONEPANEL_API_VERSION": "v2" // optional, default is v2
       }
     }
   }

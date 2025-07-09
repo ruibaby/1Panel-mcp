@@ -19,6 +19,7 @@ export async function deployWebsite(buildDirPath, domain = "") {
   const onePanelAPI = new OnePanelAPI({
     baseURL: process.env.ONEPANEL_BASE_URL,
     apiKey: process.env.ONEPANEL_API_KEY,
+    version: process.env.ONEPANEL_API_VERSION || "v2",
     languageCode: process.env.ONEPANEL_LANGUAGE || "zh",
   });
 
